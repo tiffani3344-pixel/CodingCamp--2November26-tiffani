@@ -1,0 +1,427 @@
+﻿/* ============================================================
+   CSS Custom Properties — Pink Pastel Palette
+   ============================================================ */
+:root {
+  --color-bg:        #fff0f5;
+  --color-surface:   #ffffff;
+  --color-accent:    #e88fa8;
+  --color-accent-dk: #d4708a;
+  --color-text:      #4a3040;
+  --color-text-sec:  #9e7088;
+  --color-done:      #c9a8b8;
+  --color-danger:    #e07070;
+  --color-danger-dk: #c85555;
+  --color-border:    #f5d0e0;
+
+  --radius:  12px;
+  --shadow:  0 4px 16px rgba(232, 143, 168, 0.15);
+  --gap:     1.25rem;
+}
+
+/* ============================================================
+   Reset / Base
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(circle at 20% 20%, #ffd6e7 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, #fce4ec 0%, transparent 40%);
+  color: var(--color-text);
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  line-height: 1.6;
+  min-width: 320px;
+}
+
+/* ============================================================
+   Content Wrapper
+   ============================================================ */
+body > header,
+body > main {
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: var(--gap);
+}
+
+/* ============================================================
+   Header / Greeting Widget
+   ============================================================ */
+header#greeting {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1.25rem;
+  padding-inline: calc(var(--gap) + max(0px, (100vw - 1440px) / 2));
+  background: linear-gradient(135deg, #ffd6e7 0%, #ffb3cc 50%, #ffc8dd 100%);
+  box-shadow: 0 4px 20px rgba(232, 143, 168, 0.3);
+  border-bottom: 2px solid #ffb3cc;
+}
+
+#greeting-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #c2547a;
+  letter-spacing: 0.02em;
+}
+
+#greeting-text::before {
+  content: '🌸 ';
+}
+
+#datetime {
+  font-size: 0.9rem;
+  color: #c2547a;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   Main Grid Layout
+   ============================================================ */
+main {
+  display: grid;
+  gap: var(--gap);
+  padding-block: var(--gap);
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "timer"
+    "todos"
+    "links";
+}
+
+@media (min-width: 768px) {
+  main {
+    grid-template-columns: 1fr 1.6fr;
+    grid-template-areas:
+      "timer  todos"
+      "links  todos";
+  }
+}
+
+/* ============================================================
+   Section Cards
+   ============================================================ */
+main > section {
+  background-color: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  border: 1.5px solid var(--color-border);
+  transition: box-shadow 0.2s;
+}
+
+main > section:hover {
+  box-shadow: 0 8px 28px rgba(232, 143, 168, 0.25);
+}
+
+#timer { grid-area: timer; }
+#todos { grid-area: todos; }
+#links { grid-area: links; }
+
+main > section h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-accent-dk);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #ffd6e7;
+}
+
+/* ============================================================
+   Shared Form Inputs
+   ============================================================ */
+input[type="text"],
+input[type="url"] {
+  flex: 1;
+  padding: 0.5rem 0.85rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background-color: #fff8fb;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(232, 143, 168, 0.2);
+}
+
+input[type="text"]::placeholder,
+input[type="url"]::placeholder {
+  color: #d4a8bc;
+}
+
+/* ============================================================
+   Shared Button Base
+   ============================================================ */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.45rem 0.9rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background-color 0.15s, transform 0.1s, opacity 0.15s;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+#todo-add,
+#link-add {
+  background: linear-gradient(135deg, #f4a0bc, #e88fa8);
+  color: #fff;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(232, 143, 168, 0.4);
+}
+
+#todo-add:hover:not(:disabled),
+#link-add:hover {
+  background: linear-gradient(135deg, #e88fa8, #d4708a);
+}
+
+/* ============================================================
+   Focus Timer
+   ============================================================ */
+#timer-display {
+  font-size: 3.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  color: var(--color-accent-dk);
+  text-align: center;
+  margin-block: 0.5rem 1.25rem;
+  text-shadow: 0 2px 8px rgba(212, 112, 138, 0.2);
+}
+
+#timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+#timer-start {
+  background: linear-gradient(135deg, #f4a0bc, #e88fa8);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(232, 143, 168, 0.4);
+}
+
+#timer-start:hover {
+  background: linear-gradient(135deg, #e88fa8, #d4708a);
+}
+
+#timer-stop,
+#timer-reset {
+  background-color: #fde8f0;
+  color: var(--color-accent-dk);
+  border: 1.5px solid var(--color-border);
+}
+
+#timer-stop:hover,
+#timer-reset:hover {
+  background-color: #fcd0e2;
+}
+
+/* ============================================================
+   To-Do List
+   ============================================================ */
+#todo-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+#todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+#todo-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #fff8fb, #fff0f5);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  transition: background-color 0.1s, transform 0.1s;
+}
+
+#todo-list li:hover {
+  background: linear-gradient(135deg, #fde8f0, #ffd6e7);
+  transform: translateX(2px);
+}
+
+#todo-list input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.todo-text {
+  flex: 1;
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+li.completed .todo-text {
+  text-decoration: line-through;
+  color: var(--color-done);
+}
+
+.todo-edit {
+  background-color: transparent;
+  color: var(--color-accent);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  border: 1.5px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.todo-edit:hover {
+  background-color: #fde8f0;
+}
+
+.todo-edit-input {
+  flex: 1;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.95rem;
+}
+
+.todo-save {
+  background: linear-gradient(135deg, #f4a0bc, #e88fa8);
+  color: #fff;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+
+.todo-save:hover {
+  background: linear-gradient(135deg, #e88fa8, #d4708a);
+}
+
+.todo-delete,
+.link-delete {
+  background-color: transparent;
+  color: var(--color-danger);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.8rem;
+  border: 1.5px solid #f5c0c0;
+  flex-shrink: 0;
+}
+
+.todo-delete:hover,
+.link-delete:hover {
+  background-color: var(--color-danger);
+  color: #fff;
+}
+
+/* ============================================================
+   Quick Links
+   ============================================================ */
+#links-form {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+#links-form input {
+  min-width: 0;
+}
+
+#links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #fff8fb, #fff0f5);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  transition: background-color 0.1s, transform 0.1s;
+}
+
+.link-item:hover {
+  background: linear-gradient(135deg, #fde8f0, #ffd6e7);
+  transform: translateX(2px);
+}
+
+.link-item a {
+  flex: 1;
+  color: var(--color-accent-dk);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.link-item a:hover {
+  text-decoration: underline;
+  color: #b8506e;
+}
+
+/* ============================================================
+   Scrollbar
+   ============================================================ */
+#todo-list::-webkit-scrollbar { width: 5px; }
+#todo-list::-webkit-scrollbar-track { background: transparent; }
+#todo-list::-webkit-scrollbar-thumb {
+  background-color: #f4b8cc;
+  border-radius: 10px;
+}
+
+/* ============================================================
+   Responsive < 480px
+   ============================================================ */
+@media (max-width: 479px) {
+  #timer-display { font-size: 2.8rem; }
+
+  #links-form,
+  #todo-form {
+    flex-direction: column;
+  }
+
+  #links-form input,
+  #links-form button,
+  #todo-form input,
+  #todo-form button {
+    width: 100%;
+  }
+}

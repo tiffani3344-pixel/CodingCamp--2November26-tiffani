@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List Dashboard</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header id="greeting">
+      <span id="greeting-text"></span>
+      <span id="datetime"></span>
+    </header>
+
+    <main>
+      <section id="timer">
+        <h2>Focus Timer</h2>
+        <div id="timer-display">25:00</div>
+        <div id="timer-controls">
+          <button id="timer-start">Start</button>
+          <button id="timer-stop">Stop</button>
+          <button id="timer-reset">Reset</button>
+        </div>
+      </section>
+
+      <section id="todos">
+        <h2>To-Do List</h2>
+        <div id="todo-form">
+          <input type="text" id="todo-input" placeholder="Add a new task…" />
+          <button id="todo-add" disabled>Add</button>
+        </div>
+        <ul id="todo-list"></ul>
+      </section>
+
+      <section id="links">
+        <h2>Quick Links</h2>
+        <div id="links-form">
+          <input type="text" id="link-name" placeholder="Name" />
+          <input type="url" id="link-url" placeholder="https://…" />
+          <button id="link-add">Add</button>
+        </div>
+                <p id="link-error" style="color:#e05c5c; font-size:0.85rem; display:none; margin-top:0.4rem;"></p>
+        <div id="links-list"></div>
+      </section>
+    </main>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>
